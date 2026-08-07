@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="About Nelisoft Hub - Fullstack Web Developer & Python Expert" />
+    <title>About · Nelisoft Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 500: '#2563eb', 600: '#1d4ed8' },
+                        secondary: { 500: '#7c3aed' },
+                        accent: { 500: '#06b6d4' }
+                    },
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'] },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease forwards',
+                        'gradient-shift': 'gradientShift 6s ease infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        gradientShift: { '0%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' }, '100%': { backgroundPosition: '0% 50%' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text { background: linear-gradient(135deg, #2563eb, #7c3aed, #06b6d4); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 6s ease infinite; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: white; z-index: 50; padding: 2rem 1.5rem; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; box-shadow: -10px 0 40px rgba(0,0,0,0.1); }
+        .dark .mobile-menu { background: #0f172a; }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu .close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; background: none; border: none; color: inherit; cursor: pointer; }
+        .mobile-menu .nav-link { display: block; padding: 0.75rem 0; font-size: 1rem; font-weight: 500; border-bottom: 1px solid #e2e8f0; transition: color 0.2s; }
+        .dark .mobile-menu .nav-link { border-bottom-color: #1e293b; }
+        .mobile-menu .nav-link:hover { color: #2563eb; }
+        .mobile-menu .nav-link i { width: 24px; margin-right: 12px; }
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 40; backdrop-filter: blur(4px); }
+        .nav-overlay.active { display: block; }
+        @media (min-width: 769px) { .mobile-menu, .nav-overlay { display: none !important; } }
+        .timeline-item::before { content: ''; position: absolute; left: -2px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #2563eb, #7c3aed); border-radius: 3px; }
+        .skill-bar { height: 8px; border-radius: 4px; background: #e2e8f0; overflow: hidden; }
+        .dark .skill-bar { background: #2d3a5e; }
+        .skill-bar .fill { height: 100%; border-radius: 4px; background: linear-gradient(to right, #2563eb, #7c3aed); transition: width 1.5s ease; width: 0; }
+        .skill-bar .fill.visible { width: var(--progress); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        .dark ::-webkit-scrollbar-track { background: #2d3a5e; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300" style="min-height:70px;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <a href="index.html" class="flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight"><i class="fas fa-cubes text-primary-500"></i><span class="gradient-text">Nelisoft</span></a>
+                <div class="hidden md:flex items-center gap-6 lg:gap-8">
+                    <a href="index.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:rounded-full">About</a>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Services</a>
+                    <a href="portfolio.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Portfolio</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
+                </div>
+                <button id="menuToggle" class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"><i class="fas fa-bars text-xl"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="navOverlay" class="nav-overlay"></div>
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="close-btn"><i class="fas fa-times"></i></button>
+        <div class="mt-8">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html" class="nav-link text-primary-500"><i class="fas fa-user"></i> About</a>
+            <a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a>
+            <a href="portfolio.html" class="nav-link"><i class="fas fa-folder-open"></i> Portfolio</a>
+            <a href="blog.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            <div id="themeToggleMobile" class="nav-link cursor-pointer"><i id="themeIconMobile" class="fas fa-moon"></i> Toggle Theme</div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <section class="pt-32 pb-12 bg-gradient-to-r from-primary-500/10 to-secondary-500/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">About Me</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mt-3">Who I <span class="gradient-text">Am</span></h1>
+                <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-4 text-sm sm:text-base">Passionate developer dedicated to creating exceptional digital experiences.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT CONTENT ===== -->
+    <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=600&fit=crop&crop=center&auto=format" alt="About Nelisoft" class="w-full h-auto object-cover" loading="lazy" />
+                    </div>
+                    <div class="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-3 sm:px-6 sm:py-4 rounded-2xl shadow-2xl">
+                        <span class="text-2xl sm:text-4xl font-extrabold block leading-none">5+</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-wider opacity-90">Years Experience</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <h2 class="text-2xl sm:text-3xl font-bold">Building the future, one line of code at a time</h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">I'm a fullstack developer with a deep passion for Python and modern web technologies. From concept to deployment, I bring ideas to life with clean, maintainable code and pixel-perfect design.</p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">With clients across 6 countries, I specialize in creating scalable solutions that drive business growth. My approach combines technical excellence with a strong focus on user experience.</p>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> Fullstack Development</div>
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> Python & AI</div>
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> Cloud Architecture</div>
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> UI/UX Design</div>
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> API Development</div>
+                        <div class="flex items-center gap-2 text-sm font-medium"><i class="fas fa-check-circle text-primary-500"></i> DevOps & CI/CD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SKILLS SECTION ===== -->
+    <section class="py-16 sm:py-20 bg-white dark:bg-slate-800/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">Skills</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3">Technical <span class="gradient-text">Proficiency</span></h2>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div><div class="flex justify-between mb-1"><span class="font-medium">Python / Django</span><span>95%</span></div><div class="skill-bar"><div class="fill" style="--progress: 95%;" data-width="95"></div></div></div>
+                <div><div class="flex justify-between mb-1"><span class="font-medium">JavaScript / React</span><span>90%</span></div><div class="skill-bar"><div class="fill" style="--progress: 90%;" data-width="90"></div></div></div>
+                <div><div class="flex justify-between mb-1"><span class="font-medium">Node.js / Express</span><span>85%</span></div><div class="skill-bar"><div class="fill" style="--progress: 85%;" data-width="85"></div></div></div>
+                <div><div class="flex justify-between mb-1"><span class="font-medium">AI / Machine Learning</span><span>80%</span></div><div class="skill-bar"><div class="fill" style="--progress: 80%;" data-width="80"></div></div></div>
+                <div><div class="flex justify-between mb-1"><span class="font-medium">Cloud (AWS, Azure, GCP)</span><span>85%</span></div><div class="skill-bar"><div class="fill" style="--progress: 85%;" data-width="85"></div></div></div>
+                <div><div class="flex justify-between mb-1"><span class="font-medium">UI/UX Design</span><span>75%</span></div><div class="skill-bar"><div class="fill" style="--progress: 75%;" data-width="75"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== EXPERIENCE TIMELINE ===== -->
+    <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">Journey</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3">My <span class="gradient-text">Experience</span></h2>
+            </div>
+            <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+                <div class="relative pl-6 sm:pl-8 timeline-item">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="text-lg sm:text-xl font-bold">Senior Fullstack Developer</h3>
+                            <span class="text-sm font-semibold text-primary-500 dark:text-primary-400 bg-primary-500/10 px-3 py-1 rounded-full">2023 - Present</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">Leading development of enterprise-scale web applications with React, Django, and AWS. Mentoring junior developers and architecting microservices.</p>
+                    </div>
+                </div>
+                <div class="relative pl-6 sm:pl-8 timeline-item">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="text-lg sm:text-xl font-bold">Python & AI Engineer</h3>
+                            <span class="text-sm font-semibold text-secondary-500 dark:text-secondary-400 bg-secondary-500/10 px-3 py-1 rounded-full">2021 - 2023</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">Developed AI-powered solutions including neural search engines, recommendation systems, and natural language processing applications.</p>
+                    </div>
+                </div>
+                <div class="relative pl-6 sm:pl-8 timeline-item">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="flex flex-wrap items-start justify-between gap-2 mb-3">
+                            <h3 class="text-lg sm:text-xl font-bold">Web Developer & Consultant</h3>
+                            <span class="text-sm font-semibold text-accent-500 dark:text-accent-400 bg-accent-500/10 px-3 py-1 rounded-full">2019 - 2021</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">Built custom web solutions for startups and businesses. Specialized in responsive design, API integration, and performance optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="py-16 sm:py-20 bg-gradient-to-r from-primary-500/10 to-secondary-500/10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4">Want to Work <span class="gradient-text">Together?</span></h2>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">Let's collaborate on your next project. I'm just a message away.</p>
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-bold rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 transition-all duration-300">Let's Talk <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-slate-200 dark:border-slate-700 py-8 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <p>&copy; <span id="currentYear">2026</span> Nelisoft Hub · crafted with <span class="text-red-500 inline-block animate-pulse">♥</span> &amp; Python · <i class="fas fa-globe"></i> International</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            "use strict";
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const themeIconMobile = document.getElementById('themeIconMobile');
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navOverlay = document.getElementById('navOverlay');
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+                themeIconMobile.className = 'fas fa-sun';
+            }
+
+            function toggleTheme() {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                const iconClass = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeIcon.className = iconClass;
+                themeIconMobile.className = iconClass;
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            themeToggleMobile.addEventListener('click', toggleTheme);
+
+            function openMenu() { mobileMenu.classList.add('open'); navOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeMenuFn() { mobileMenu.classList.remove('open'); navOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+            menuToggle.addEventListener('click', openMenu);
+            closeMenu.addEventListener('click', closeMenuFn);
+            navOverlay.addEventListener('click', closeMenuFn);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenuFn(); });
+            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', closeMenuFn); });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Animate skill bars on scroll
+            const skillBars = document.querySelectorAll('.skill-bar .fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bar = entry.target;
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width + '%';
+                        bar.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            skillBars.forEach(bar => observer.observe(bar));
+
+            console.log('🚀 About page loaded.');
+        })();
+    </script>
+</body>
+</html>

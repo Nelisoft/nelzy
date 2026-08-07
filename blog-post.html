@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="Building Scalable Web Apps with Django - Blog Post by Nelisoft Hub" />
+    <title>Building Scalable Web Apps with Django · Nelisoft Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: { 500: '#2563eb' }, secondary: { 500: '#7c3aed' }, accent: { 500: '#06b6d4' } },
+                    fontFamily: { 'sans': ['Inter', 'sans-serif'] },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease forwards',
+                        'gradient-shift': 'gradientShift 6s ease infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        gradientShift: { '0%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' }, '100%': { backgroundPosition: '0% 50%' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text { background: linear-gradient(135deg, #2563eb, #7c3aed, #06b6d4); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 6s ease infinite; }
+        .mobile-menu { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: white; z-index: 50; padding: 2rem 1.5rem; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; box-shadow: -10px 0 40px rgba(0,0,0,0.1); }
+        .dark .mobile-menu { background: #0f172a; }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu .close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; background: none; border: none; color: inherit; cursor: pointer; }
+        .mobile-menu .nav-link { display: block; padding: 0.75rem 0; font-size: 1rem; font-weight: 500; border-bottom: 1px solid #e2e8f0; transition: color 0.2s; }
+        .dark .mobile-menu .nav-link { border-bottom-color: #1e293b; }
+        .mobile-menu .nav-link:hover { color: #2563eb; }
+        .mobile-menu .nav-link i { width: 24px; margin-right: 12px; }
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 40; backdrop-filter: blur(4px); }
+        .nav-overlay.active { display: block; }
+        @media (min-width: 769px) { .mobile-menu, .nav-overlay { display: none !important; } }
+        .blog-content h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
+        .blog-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        .blog-content p { margin-bottom: 1.25rem; line-height: 1.8; }
+        .blog-content ul, .blog-content ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+        .blog-content li { margin-bottom: 0.5rem; }
+        .blog-content blockquote { border-left: 4px solid #2563eb; padding-left: 1.5rem; margin: 1.5rem 0; font-style: italic; }
+        .blog-content code { background: #e2e8f0; padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.875rem; }
+        .dark .blog-content code { background: #2d3a5e; }
+        .blog-content pre { background: #0f172a; color: #e2e8f0; padding: 1.5rem; border-radius: 1rem; overflow-x: auto; margin: 1.5rem 0; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        .dark ::-webkit-scrollbar-track { background: #2d3a5e; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+        @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300" style="min-height:70px;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <a href="index.html" class="flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight"><i class="fas fa-cubes text-primary-500"></i><span class="gradient-text">Nelisoft</span></a>
+                <div class="hidden md:flex items-center gap-6 lg:gap-8">
+                    <a href="index.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="about.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">About</a>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Services</a>
+                    <a href="portfolio.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Portfolio</a>
+                    <a href="blog.html" class="text-sm font-medium text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:rounded-full">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"><i id="themeIcon" class="fas fa-moon text-lg"></i></button>
+                </div>
+                <button id="menuToggle" class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"><i class="fas fa-bars text-xl"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="navOverlay" class="nav-overlay"></div>
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="close-btn"><i class="fas fa-times"></i></button>
+        <div class="mt-8">
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html" class="nav-link"><i class="fas fa-user"></i> About</a>
+            <a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a>
+            <a href="portfolio.html" class="nav-link"><i class="fas fa-folder-open"></i> Portfolio</a>
+            <a href="blog.html" class="nav-link text-primary-500"><i class="fas fa-blog"></i> Blog</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            <div id="themeToggleMobile" class="nav-link cursor-pointer"><i id="themeIconMobile" class="fas fa-moon"></i> Toggle Theme</div>
+        </div>
+    </div>
+
+    <!-- ===== BLOG POST ===== -->
+    <section class="pt-32 pb-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-6">
+                <a href="blog.html" class="inline-flex items-center gap-2 text-primary-500 hover:gap-3 transition-all">&larr; Back to Blog</a>
+            </div>
+
+            <div class="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-lg mb-8">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=600&fit=crop&crop=center&auto=format" alt="Building Scalable Web Apps with Django" class="w-full h-full object-cover" />
+            </div>
+
+            <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-4">
+                <span class="bg-primary-500/10 text-primary-600 dark:text-primary-300 px-3 py-1 rounded-full text-xs font-semibold">Tutorial</span>
+                <span><i class="fas fa-calendar-alt mr-1"></i> Dec 15, 2026</span>
+                <span><i class="fas fa-clock mr-1"></i> 5 min read</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4">Building Scalable Web Apps with Django</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">Learn the best practices for building high-performance web applications with Django and modern frontend frameworks.</p>
+
+            <div class="flex items-center gap-4 py-4 border-y border-slate-200 dark:border-slate-700 mb-8">
+                <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face&auto=format" alt="Author" class="w-12 h-12 rounded-full object-cover" />
+                <div>
+                    <div class="font-semibold">Nelisoft Hub</div>
+                    <div class="text-sm text-slate-500 dark:text-slate-400">Fullstack Developer & Python Expert</div>
+                </div>
+            </div>
+
+            <!-- Blog Content -->
+            <div class="blog-content">
+                <p>Django is one of the most powerful and popular web frameworks for building scalable web applications. In this comprehensive guide, we'll explore the best practices, patterns, and techniques for building production-ready Django applications that can handle millions of users.</p>
+
+                <h2>Why Django for Scalable Applications?</h2>
+                <p>Django comes with a rich set of features that make it ideal for building scalable web applications:</p>
+                <ul>
+                    <li><strong>Battery-included</strong> - Django provides authentication, admin interface, ORM, and more out of the box.</li>
+                    <li><strong>DRY (Don't Repeat Yourself)</strong> - Django follows the DRY principle, reducing code duplication.</li>
+                    <li><strong>Security</strong> - Django has built-in protection against common web vulnerabilities.</li>
+                    <li><strong>Scalability</strong> - Django can scale horizontally with proper architecture and caching.</li>
+                </ul>
+
+                <h2>Project Structure Best Practices</h2>
+                <p>Organizing your Django project properly is crucial for maintainability and scalability. Here's a recommended project structure:</p>
+                <pre>
+                myproject/
+                ├── manage.py
+                ├── myproject/
+                │   ├── __init__.py
+                │   ├── settings/
+                │   │   ├── __init__.py
+                │   │   ├── base.py
+                │   │   ├── development.py
+                │   │   └── production.py
+                │   ├── urls.py
+                │   └── wsgi.py
+                ├── apps/
+                │   ├── users/
+                │   ├── api/
+                │   └── core/
+                ├── static/
+                ├── media/
+                └── templates/
+                </pre>
+
+                <h2>Database Optimization</h2>
+                <p>Database performance is critical for scalable applications. Here are key strategies:</p>
+                <ul>
+                    <li><strong>Use database indexes</strong> - Index frequently queried fields.</li>
+                    <li><strong>Optimize queries</strong> - Use <code>select_related</code> and <code>prefetch_related</code> to reduce query count.</li>
+                    <li><strong>Implement caching</strong> - Cache frequently accessed data with Redis or Memcached.</li>
+                    <li><strong>Use database replication</strong> - Separate read and write operations with master-slave replication.</li>
+                </ul>
+
+                <h2>Caching Strategy</h2>
+                <p>Implement multi-level caching for optimal performance:</p>
+                <ul>
+                    <li><strong>Cache static files</strong> - Use CDN for static assets.</li>
+                    <li><strong>Cache database queries</strong> - Cache query results with Django's cache framework.</li>
+                    <li><strong>Cache API responses</strong> - Use cache headers for API endpoints.</li>
+                    <li><strong>Use Redis</strong> - Redis is perfect for session management and caching.</li>
+                </ul>
+
+                <h2>Asynchronous Processing</h2>
+                <p>For time-consuming operations, use asynchronous processing:</p>
+                <ul>
+                    <li><strong>Celery</strong> - Python's distributed task queue.</li>
+                    <li><strong>Django Channels</strong> - For WebSocket and real-time features.</li>
+                    <li><strong>Background tasks</strong> - Move email sending, file processing, and notifications to background tasks.</li>
+                </ul>
+
+                <h2>Frontend Integration</h2>
+                <p>Modern Django applications often use a separate frontend framework:</p>
+                <ul>
+                    <li><strong>React with Django REST Framework</strong> - Build powerful single-page applications.</li>
+                    <li><strong>Vue.js with Django</strong> - Alternative frontend option with great developer experience.</li>
+                    <li><strong>HTMX</strong> - Build dynamic applications without complex JavaScript.</li>
+                </ul>
+
+                <h2>Deployment and DevOps</h2>
+                <p>Deploy your Django application for production:</p>
+                <ul>
+                    <li><strong>Use environment variables</strong> - Store sensitive data in environment variables.</li>
+                    <li><strong>Implement CI/CD</strong> - Automate testing and deployment with GitHub Actions or Jenkins.</li>
+                    <li><strong>Use Docker</strong> - Containerize your application for consistent environments.</li>
+                    <li><strong>Monitor with Sentry or Rollbar</strong> - Track errors and performance issues.</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>Building scalable Django applications requires careful planning and implementation of best practices. By following the strategies outlined in this guide, you can build Django applications that are maintainable, performant, and ready for growth.</p>
+            </div>
+
+            <!-- Tags -->
+            <div class="flex flex-wrap gap-2 py-6 border-t border-slate-200 dark:border-slate-700 mt-8">
+                <span class="text-sm font-semibold mr-2">Tags:</span>
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-xs">Django</span>
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-xs">Python</span>
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-xs">Web Development</span>
+                <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 rounded-full text-xs">Scalability</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RELATED POSTS ===== -->
+    <section class="py-16 bg-white dark:bg-slate-800/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-6">Related Posts</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=200&fit=crop&crop=center&auto=format" alt="AI Search" class="w-full h-40 object-cover" loading="lazy" />
+                    <div class="p-4">
+                        <h4 class="font-bold mb-1 text-sm">AI-Powered Search: A Practical Guide</h4>
+                        <a href="blog-post.html" class="text-primary-500 text-sm font-semibold">Read More →</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=200&fit=crop&crop=center&auto=format" alt="Cloud" class="w-full h-40 object-cover" loading="lazy" />
+                    <div class="p-4">
+                        <h4 class="font-bold mb-1 text-sm">Optimizing Cloud Architecture</h4>
+                        <a href="blog-post.html" class="text-primary-500 text-sm font-semibold">Read More →</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=200&fit=crop&crop=center&auto=format" alt="React" class="w-full h-40 object-cover" loading="lazy" />
+                    <div class="p-4">
+                        <h4 class="font-bold mb-1 text-sm">Modern React Patterns 2026</h4>
+                        <a href="blog-post.html" class="text-primary-500 text-sm font-semibold">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-slate-200 dark:border-slate-700 py-8 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+            <p>&copy; <span id="currentYear">2026</span> Nelisoft Hub · crafted with <span class="text-red-500 inline-block animate-pulse">♥</span> &amp; Python · <i class="fas fa-globe"></i> International</p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            "use strict";
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const themeIconMobile = document.getElementById('themeIconMobile');
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navOverlay = document.getElementById('navOverlay');
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+                themeIconMobile.className = 'fas fa-sun';
+            }
+
+            function toggleTheme() {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                const iconClass = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeIcon.className = iconClass;
+                themeIconMobile.className = iconClass;
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            themeToggleMobile.addEventListener('click', toggleTheme);
+
+            function openMenu() { mobileMenu.classList.add('open'); navOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeMenuFn() { mobileMenu.classList.remove('open'); navOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+            menuToggle.addEventListener('click', openMenu);
+            closeMenu.addEventListener('click', closeMenuFn);
+            navOverlay.addEventListener('click', closeMenuFn);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenuFn(); });
+            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', closeMenuFn); });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            console.log('🚀 Blog post page loaded.');
+        })();
+    </script>
+</body>
+</html> 

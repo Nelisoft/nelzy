@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standard Blog · Simple & clean</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ---------- reset & base ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f8fafc;
+      color: #0b1a2e;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- header / navigation ---------- */
+    .site-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e9edf2;
+      padding: 16px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(6px);
+      background: rgba(255,255,255,0.92);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+
+    .logo a {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      color: #0b1a2e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logo i {
+      color: #2563eb;
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #334155;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.15s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #0b1a2e;
+      border-bottom-color: #2563eb;
+    }
+
+    .nav-links .btn-outline {
+      border: 1.5px solid #dce2ec;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.15s;
+    }
+
+    .nav-links .btn-outline:hover {
+      background: #0b1a2e;
+      color: white;
+      border-color: #0b1a2e;
+    }
+
+    /* ---------- main grid ---------- */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 40px;
+      margin: 40px 0 60px;
+    }
+
+    /* ---------- posts ---------- */
+    .post-card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px 28px 28px;
+      margin-bottom: 32px;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      transition: 0.2s ease;
+    }
+
+    .post-card:hover {
+      border-color: #d0d9e8;
+      box-shadow: 0 12px 24px -8px rgba(0,0,0,0.06);
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-bottom: 10px;
+    }
+
+    .post-meta .date i {
+      margin-right: 4px;
+    }
+
+    .post-meta .category {
+      background: #eef2f6;
+      padding: 2px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      color: #1e293b;
+      text-transform: uppercase;
+    }
+
+    .post-card h2 {
+      font-size: 1.8rem;
+      font-weight: 650;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .post-card h2 a {
+      color: #0b1a2e;
+      text-decoration: none;
+      transition: color 0.1s;
+    }
+
+    .post-card h2 a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    .post-excerpt {
+      color: #1e293b;
+      margin: 12px 0 16px;
+      font-size: 1.02rem;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid #ecf1f7;
+      padding-top: 16px;
+      margin-top: 6px;
+    }
+
+    .read-more {
+      font-weight: 500;
+      color: #2563eb;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.15s;
+    }
+
+    .read-more i {
+      font-size: 0.8rem;
+      transition: transform 0.15s;
+    }
+
+    .read-more:hover i {
+      transform: translateX(4px);
+    }
+
+    .post-stats {
+      display: flex;
+      gap: 18px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+
+    .post-stats i {
+      margin-right: 4px;
+    }
+
+    /* ---------- sidebar ---------- */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .sidebar-card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px 24px 28px;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .sidebar-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #ecf1f7;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h3 i {
+      color: #2563eb;
+      font-size: 1rem;
+    }
+
+    .sidebar-about p {
+      color: #1e293b;
+      font-size: 0.95rem;
+    }
+
+    .sidebar-about .avatar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .avatar i {
+      font-size: 2.8rem;
+      color: #94a3b8;
+      background: #f1f5f9;
+      padding: 8px;
+      border-radius: 60px;
+    }
+
+    .recent-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .recent-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .recent-list li:last-child {
+      border-bottom: none;
+    }
+
+    .recent-list a {
+      text-decoration: none;
+      color: #0b1a2e;
+      font-weight: 500;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.1s;
+    }
+
+    .recent-list a:hover {
+      color: #2563eb;
+    }
+
+    .recent-list .post-date-small {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-cloud a {
+      background: #f1f5f9;
+      padding: 4px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #1e293b;
+      text-decoration: none;
+      transition: 0.1s;
+    }
+
+    .tag-cloud a:hover {
+      background: #2563eb;
+      color: white;
+    }
+
+    /* ---------- pagination ---------- */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .pagination a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 60px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      color: #0b1a2e;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.1s;
+    }
+
+    .pagination a.active {
+      background: #0b1a2e;
+      border-color: #0b1a2e;
+      color: white;
+    }
+
+    .pagination a:hover:not(.active) {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* ---------- footer ---------- */
+    .site-footer {
+      background: #ffffff;
+      border-top: 1px solid #e9edf2;
+      padding: 28px 0 32px;
+      margin-top: 20px;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-inner p {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-socials a {
+      color: #64748b;
+      font-size: 1.2rem;
+      transition: color 0.1s;
+    }
+
+    .footer-socials a:hover {
+      color: #0b1a2e;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 900px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .sidebar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 12px 18px;
+      }
+
+      .sidebar {
+        grid-template-columns: 1fr;
+      }
+
+      .post-card h2 {
+        font-size: 1.5rem;
+      }
+
+      .container {
+        padding: 0 16px;
+      }
+    }
+
+    /* simple spacer */
+    .mt-1 { margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <!-- header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <a href="#"><i class="fas fa-feather-alt"></i> StandardBlog</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">Articles</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#" class="btn-outline"><i class="fas fa-search"></i> Search</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- main container -->
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- main content -->
+      <main>
+
+        <!-- post 1 -->
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> August 6, 2026</span>
+            <span class="category"><i class="fas fa-tag"></i> Design</span>
+          </div>
+          <h2><a href="#">The future of responsive design</a></h2>
+          <p class="post-excerpt">
+            From fluid grids to container queries — how modern CSS is reshaping the way we build 
+            for every screen. A deep dive into the tools and techniques that are defining the next 
+            era of web layout.
+          </p>
+          <div class="post-footer">
+            <a href="#" class="read-more">Continue reading <i class="fas fa-arrow-right"></i></a>
+            <div class="post-stats">
+              <span><i class="far fa-comment"></i> 14</span>
+              <span><i class="far fa-heart"></i> 38</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- post 2 -->
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> August 2, 2026</span>
+            <span class="category"><i class="fas fa-tag"></i> Productivity</span>
+          </div>
+          <h2><a href="#">Deep work in a distracted world</a></h2>
+          <p class="post-excerpt">
+            Cal Newport’s philosophy meets real‑life application. Learn how to carve out focus 
+            blocks, protect your attention, and produce your best work — even when notifications 
+            never stop.
+          </p>
+          <div class="post-footer">
+            <a href="#" class="read-more">Continue reading <i class="fas fa-arrow-right"></i></a>
+            <div class="post-stats">
+              <span><i class="far fa-comment"></i> 9</span>
+              <span><i class="far fa-heart"></i> 27</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- post 3 -->
+        <article class="post-card">
+          <div class="post-meta">
+            <span class="date"><i class="far fa-calendar-alt"></i> July 28, 2026</span>
+            <span class="category"><i class="fas fa-tag"></i> Minimalism</span>
+          </div>
+          <h2><a href="#">Digital declutter: 30 days later</a></h2>
+          <p class="post-excerpt">
+            What happened when I deleted 80% of my apps, unsubscribed from newsletters, and turned 
+            off all non‑essential notifications. The results were surprising — and liberating.
+          </p>
+          <div class="post-footer">
+            <a href="#" class="read-more">Continue reading <i class="fas fa-arrow-right"></i></a>
+            <div class="post-stats">
+              <span><i class="far fa-comment"></i> 21</span>
+              <span><i class="far fa-heart"></i> 53</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- pagination -->
+        <div class="pagination">
+          <a href="#" class="active">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#"><i class="fas fa-arrow-right"></i></a>
+        </div>
+      </main>
+
+      <!-- sidebar -->
+      <aside class="sidebar">
+
+        <!-- about card -->
+        <div class="sidebar-card sidebar-about">
+          <h3><i class="fas fa-user-circle"></i> About</h3>
+          <div class="avatar">
+            <i class="fas fa-user-circle"></i>
+            <div><strong>Morgan Hayes</strong><br><span style="font-size: 0.85rem; color: #64748b;">writer & designer</span></div>
+          </div>
+          <p>
+            Exploring design, technology, and mindful living. Sharing stories from the intersection 
+            of creativity and code.
+          </p>
+        </div>
+
+        <!-- recent posts -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-clock"></i> Recent posts</h3>
+          <ul class="recent-list">
+            <li><a href="#">CSS container queries <span class="post-date-small">Aug 6</span></a></li>
+            <li><a href="#">Building a design system <span class="post-date-small">Aug 3</span></a></li>
+            <li><a href="#">The joy of hand‑coding <span class="post-date-small">Jul 30</span></a></li>
+            <li><a href="#">Typography in 2026 <span class="post-date-small">Jul 25</span></a></li>
+            <li><a href="#">Lessons from side projects <span class="post-date-small">Jul 21</span></a></li>
+          </ul>
+        </div>
+
+        <!-- tag cloud -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-tags"></i> Topics</h3>
+          <div class="tag-cloud">
+            <a href="#">design</a>
+            <a href="#">css</a>
+            <a href="#">productivity</a>
+            <a href="#">minimalism</a>
+            <a href="#">writing</a>
+            <a href="#">code</a>
+            <a href="#">ux</a>
+            <a href="#">creativity</a>
+            <a href="#">remote</a>
+          </div>
+        </div>
+
+        <!-- newsletter (simple) -->
+        <div class="sidebar-card">
+          <h3><i class="fas fa-envelope"></i> Newsletter</h3>
+          <p style="font-size: 0.9rem; color: #1e293b;">Get the latest posts in your inbox.</p>
+          <form style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+            <input type="email" placeholder="your@email.com" style="flex: 1; min-width: 140px; padding: 10px 14px; border: 1px solid #dce2ec; border-radius: 40px; font-size: 0.9rem;" />
+            <button type="submit" style="background: #0b1a2e; border: none; color: white; padding: 10px 20px; border-radius: 40px; font-weight: 500; cursor: pointer; transition: 0.15s;">Subscribe</button>
+          </form>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p><i class="far fa-copyright"></i> 2026 StandardBlog · built with <i class="fas fa-heart" style="color: #cbd5e1;"></i></p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" aria-label="RSS"><i class="fas fa-rss"></i></a>
+        <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- optional demo script (nothing fancy) -->
+  <script>
+    (function() {
+      // just a tiny interactive: alert on subscribe (demo)
+      const subscribeForm = document.querySelector('.sidebar-card form');
+      if (subscribeForm) {
+        subscribeForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const input = this.querySelector('input[type="email"]');
+          if (input && input.value.trim()) {
+            alert('Thanks for subscribing! (demo)');
+            input.value = '';
+          } else {
+            alert('Please enter a valid email address.');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard — HYIP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Top Navigation -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <button id="menu-btn" class="lg:hidden p-2 rounded-md text-gray-500 hover:bg-gray-100">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <span class="font-semibold text-gray-900 text-lg">InvestPro</span>
+          </div>
+        </div>
+
+        <!-- Right side -->
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:block text-sm">
+            <span class="text-gray-500">Balance:</span>
+            <span class="font-semibold text-gray-900 ml-1">$4,285.60</span>
+          </div>
+          <button class="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-medium">JD</div>
+            <span class="hidden sm:block text-sm font-medium text-gray-700">John Doe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col lg:flex-row gap-6">
+
+      <!-- Sidebar -->
+      <aside id="sidebar" class="lg:w-56 shrink-0 hidden lg:block">
+        <nav class="bg-white rounded-lg border border-gray-200 p-3 space-y-1 sticky top-24">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-primary-50 text-primary-700 font-medium text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Dashboard
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Deposit
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Withdraw
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            My Investments
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            History
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Referrals
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            Support
+          </a>
+          <div class="border-t border-gray-100 my-2"></div>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Settings
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            Logout
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 space-y-6">
+
+        <!-- Page Title -->
+        <div>
+          <h1 class="text-xl font-semibold text-gray-900">Dashboard</h1>
+          <p class="text-sm text-gray-500 mt-0.5">Overview of your account and investments</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="bg-white rounded-lg border border-gray-200 p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Available Balance</p>
+                <p class="text-2xl font-bold text-gray-900 mt-1">$4,285.60</p>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Active Deposits</p>
+                <p class="text-2xl font-bold text-gray-900 mt-1">$12,500.00</p>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">3 active investments</p>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Total Earned</p>
+                <p class="text-2xl font-bold text-green-600 mt-1">$3,842.15</p>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+            </div>
+            <p class="text-xs text-green-600 mt-2">+$48.20 today</p>
+          </div>
+
+          <div class="bg-white rounded-lg border border-gray-200 p-5">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-gray-500">Referral Earnings</p>
+                <p class="text-2xl font-bold text-amber-600 mt-1">$1,120.00</p>
+              </div>
+              <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center">
+                <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+            </div>
+            <p class="text-xs text-gray-400 mt-2">24 referrals</p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="flex flex-wrap gap-3">
+          <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-md transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            Make a Deposit
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium rounded-md border border-gray-300 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            Request Withdrawal
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 text-gray-700 text-sm font-medium rounded-md border border-gray-300 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Investment Plans
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+          <!-- Left Column -->
+          <div class="xl:col-span-2 space-y-6">
+
+            <!-- Active Investments -->
+            <div class="bg-white rounded-lg border border-gray-200">
+              <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                <h2 class="font-semibold text-gray-900">Active Investments</h2>
+                <a href="#" class="text-sm text-primary-600 hover:text-primary-700">View all</a>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="text-left text-gray-500 border-b border-gray-100">
+                      <th class="px-5 py-3 font-medium">Plan</th>
+                      <th class="px-5 py-3 font-medium">Amount</th>
+                      <th class="px-5 py-3 font-medium">Earned</th>
+                      <th class="px-5 py-3 font-medium">Progress</th>
+                      <th class="px-5 py-3 font-medium">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100">
+                    <tr>
+                      <td class="px-5 py-4">
+                        <div class="font-medium text-gray-900">Growth Plan</div>
+                        <div class="text-xs text-gray-500">2.2% daily · 30 days</div>
+                      </td>
+                      <td class="px-5 py-4 font-medium">$5,000.00</td>
+                      <td class="px-5 py-4 text-green-600 font-medium">+$1,100.00</td>
+                      <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                          <div class="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary-500 rounded-full" style="width:60%"></div>
+                          </div>
+                          <span class="text-xs text-gray-500">18/30</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-4">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Active</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-5 py-4">
+                        <div class="font-medium text-gray-900">Premium Plan</div>
+                        <div class="text-xs text-gray-500">3.0% daily · 15 days</div>
+                      </td>
+                      <td class="px-5 py-4 font-medium">$5,000.00</td>
+                      <td class="px-5 py-4 text-green-600 font-medium">+$1,350.00</td>
+                      <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                          <div class="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-500 rounded-full" style="width:60%"></div>
+                          </div>
+                          <span class="text-xs text-gray-500">9/15</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-4">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Active</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-5 py-4">
+                        <div class="font-medium text-gray-900">Starter Plan</div>
+                        <div class="text-xs text-gray-500">1.5% daily · 45 days</div>
+                      </td>
+                      <td class="px-5 py-4 font-medium">$2,500.00</td>
+                      <td class="px-5 py-4 text-green-600 font-medium">+$787.50</td>
+                      <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                          <div class="w-20 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-blue-500 rounded-full" style="width:47%"></div>
+                          </div>
+                          <span class="text-xs text-gray-500">21/45</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-4">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Active</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="bg-white rounded-lg border border-gray-200">
+              <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+                <h2 class="font-semibold text-gray-900">Recent Transactions</h2>
+                <a href="#" class="text-sm text-primary-600 hover:text-primary-700">View history</a>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="text-left text-gray-500 border-b border-gray-100">
+                      <th class="px-5 py-3 font-medium">Type</th>
+                      <th class="px-5 py-3 font-medium">Amount</th>
+                      <th class="px-5 py-3 font-medium">Status</th>
+                      <th class="px-5 py-3 font-medium text-right">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100">
+                    <tr>
+                      <td class="px-5 py-3.5">
+                        <div class="flex items-center gap-2">
+                          <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                          <span>Profit</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-3.5 font-medium text-green-600">+$48.20</td>
+                      <td class="px-5 py-3.5">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Completed</span>
+                      </td>
+                      <td class="px-5 py-3.5 text-right text-gray-500">Today, 09:15</td>
+                    </tr>
+                    <tr>
+                      <td class="px-5 py-3.5">
+                        <div class="flex items-center gap-2">
+                          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                          <span>Deposit</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-3.5 font-medium">+$2,500.00</td>
+                      <td class="px-5 py-3.5">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Confirmed</span>
+                      </td>
+                      <td class="px-5 py-3.5 text-right text-gray-500">Aug 4, 14:22</td>
+                    </tr>
+                    <tr>
+                      <td class="px-5 py-3.5">
+                        <div class="flex items-center gap-2">
+                          <span class="w-2 h-2 rounded-full bg-orange-500"></span>
+                          <span>Withdrawal</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-3.5 font-medium">-$1,000.00</td>
+                      <td class="px-5 py-3.5">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Completed</span>
+                      </td>
+                      <td class="px-5 py-3.5 text-right text-gray-500">Aug 2, 11:05</td>
+                    </tr>
+                    <tr>
+                      <td class="px-5 py-3.5">
+                        <div class="flex items-center gap-2">
+                          <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                          <span>Referral Bonus</span>
+                        </div>
+                      </td>
+                      <td class="px-5 py-3.5 font-medium text-amber-600">+$85.00</td>
+                      <td class="px-5 py-3.5">
+                        <span class="inline-flex px-2 py-0.5 text-xs font-medium rounded-full bg-green-50 text-green-700">Completed</span>
+                      </td>
+                      <td class="px-5 py-3.5 text-right text-gray-500">Aug 1, 16:40</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-6">
+
+            <!-- Referral -->
+            <div class="bg-white rounded-lg border border-gray-200 p-5">
+              <h2 class="font-semibold text-gray-900 mb-1">Referral Program</h2>
+              <p class="text-sm text-gray-500 mb-4">Earn 5% commission on every deposit made by your referrals.</p>
+              
+              <div class="flex gap-2 mb-4">
+                <input type="text" readonly value="https://investpro.com/ref/johndoe" class="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-md text-sm text-gray-600 focus:outline-none">
+                <button class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium rounded-md transition">Copy</button>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-gray-50 rounded-md p-3 text-center">
+                  <div class="text-lg font-bold text-gray-900">24</div>
+                  <div class="text-xs text-gray-500">Referrals</div>
+                </div>
+                <div class="bg-gray-50 rounded-md p-3 text-center">
+                  <div class="text-lg font-bold text-amber-600">$1,120</div>
+                  <div class="text-xs text-gray-500">Earned</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Investment Plans -->
+            <div class="bg-white rounded-lg border border-gray-200">
+              <div class="px-5 py-4 border-b border-gray-200">
+                <h2 class="font-semibold text-gray-900">Investment Plans</h2>
+              </div>
+              <div class="p-4 space-y-3">
+                <div class="border border-gray-200 rounded-md p-4 hover:border-primary-300 transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-medium text-gray-900">Starter</span>
+                    <span class="text-sm font-semibold text-primary-600">1.5%/day</span>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500">
+                    <span>$50 – $2,000</span>
+                    <span>45 days</span>
+                  </div>
+                </div>
+                <div class="border border-primary-200 bg-primary-50 rounded-md p-4">
+                  <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center gap-2">
+                      <span class="font-medium text-gray-900">Growth</span>
+                      <span class="text-[10px] px-1.5 py-0.5 bg-primary-100 text-primary-700 rounded font-medium">Popular</span>
+                    </div>
+                    <span class="text-sm font-semibold text-primary-600">2.2%/day</span>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500">
+                    <span>$500 – $10,000</span>
+                    <span>30 days</span>
+                  </div>
+                </div>
+                <div class="border border-gray-200 rounded-md p-4 hover:border-primary-300 transition">
+                  <div class="flex items-center justify-between mb-1">
+                    <span class="font-medium text-gray-900">Premium</span>
+                    <span class="text-sm font-semibold text-indigo-600">3.0%/day</span>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-500">
+                    <span>$2,000 – $50,000</span>
+                    <span>15 days</span>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 pb-4">
+                <a href="#" class="block w-full text-center py-2 text-sm font-medium text-primary-600 hover:text-primary-700 border border-primary-200 rounded-md hover:bg-primary-50 transition">
+                  View All Plans
+                </a>
+              </div>
+            </div>
+
+            <!-- Support -->
+            <div class="bg-white rounded-lg border border-gray-200 p-5">
+              <h3 class="font-medium text-gray-900 text-sm">Need Help?</h3>
+              <p class="text-xs text-gray-500 mt-1">Our support team is available 24/7 to assist you.</p>
+              <a href="#" class="inline-block mt-3 text-sm font-medium text-primary-600 hover:text-primary-700">Contact Support →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  <div id="mobile-sidebar" class="fixed inset-0 z-40 lg:hidden hidden">
+    <div class="absolute inset-0 bg-black/30" id="overlay"></div>
+    <div class="absolute left-0 top-0 bottom-0 w-64 bg-white shadow-xl p-4">
+      <div class="flex items-center justify-between mb-6">
+        <span class="font-semibold text-lg">Menu</span>
+        <button id="close-menu" class="p-1 text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <nav class="space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md bg-primary-50 text-primary-700 font-medium text-sm">Dashboard</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Deposit</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Withdraw</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">My Investments</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">History</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Referrals</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Support</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Settings</a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-md text-gray-600 hover:bg-gray-50 text-sm">Logout</a>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileSidebar = document.getElementById('mobile-sidebar');
+    const overlay = document.getElementById('overlay');
+    const closeMenu = document.getElementById('close-menu');
+
+    menuBtn?.addEventListener('click', () => mobileSidebar.classList.remove('hidden'));
+    overlay?.addEventListener('click', () => mobileSidebar.classList.add('hidden'));
+    closeMenu?.addEventListener('click', () => mobileSidebar.classList.add('hidden'));
+  </script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="description" content="Nelisoft Hub - Fullstack Web Developer & Python Expert. Building elegant, scalable digital solutions worldwide." />
+    <meta name="theme-color" content="#2563eb" />
+    <title>Nelisoft Hub · Fullstack & Python Expert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { 50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93bbfc', 400: '#60a5fa', 500: '#2563eb', 600: '#1d4ed8', 700: '#1e40af', 800: '#1e3a5f', 900: '#172554' },
+                        secondary: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#7c3aed', 600: '#6d28d9', 700: '#5b21b6' },
+                        accent: { 50: '#ecfeff', 100: '#cffafe', 200: '#a5f3fc', 300: '#67e8f9', 400: '#22d3ee', 500: '#06b6d4', 600: '#0891b2' }
+                    },
+                    fontFamily: { 'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'] },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease forwards',
+                        'fade-in-scale': 'fadeInScale 0.6s ease forwards',
+                        'slide-in-left': 'slideInLeft 0.8s ease forwards',
+                        'slide-in-right': 'slideInRight 0.8s ease forwards',
+                        'float': 'float 4s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'gradient-shift': 'gradientShift 6s ease infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        fadeInScale: { '0%': { opacity: '0', transform: 'scale(0.9)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
+                        slideInLeft: { '0%': { opacity: '0', transform: 'translateX(-40px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+                        slideInRight: { '0%': { opacity: '0', transform: 'translateX(40px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+                        float: { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-10px)' } },
+                        gradientShift: { '0%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' }, '100%': { backgroundPosition: '0% 50%' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #2563eb, #7c3aed, #06b6d4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease infinite;
+        }
+        .hero-gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s ease-in-out infinite;
+        }
+        .dark .hero-gradient-bg::before {
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+        }
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.02);
+        }
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            z-index: 50;
+            padding: 2rem 1.5rem;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+        }
+        .dark .mobile-menu {
+            background: #0f172a;
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+        }
+        .mobile-menu .nav-link {
+            display: block;
+            padding: 0.75rem 0;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #e2e8f0;
+            transition: color 0.2s;
+        }
+        .dark .mobile-menu .nav-link {
+            border-bottom-color: #1e293b;
+        }
+        .mobile-menu .nav-link:hover {
+            color: #2563eb;
+        }
+        .mobile-menu .nav-link i {
+            width: 24px;
+            margin-right: 12px;
+        }
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 40;
+            backdrop-filter: blur(4px);
+        }
+        .nav-overlay.active {
+            display: block;
+        }
+        @media (min-width: 769px) {
+            .mobile-menu, .nav-overlay { display: none !important; }
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        .dark ::-webkit-scrollbar-track { background: #2d3a5e; }
+        ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+        }
+        .blog-card img {
+            transition: transform 0.5s ease;
+        }
+        .blog-card:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 transition-all duration-300" style="min-height:70px;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-[70px]">
+                <a href="index.html" class="flex items-center gap-2 text-xl sm:text-2xl font-extrabold tracking-tight">
+                    <i class="fas fa-cubes text-primary-500"></i>
+                    <span class="gradient-text">Nelisoft</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6 lg:gap-8">
+                    <a href="index.html" class="text-sm font-medium text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-full after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:rounded-full">Home</a>
+                    <a href="about.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">About</a>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Services</a>
+                    <a href="portfolio.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Portfolio</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary-500 transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2.5px] after:bg-gradient-to-r after:from-primary-500 after:to-secondary-500 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+                    <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Toggle theme">
+                        <i id="themeIcon" class="fas fa-moon text-lg"></i>
+                    </button>
+                </div>
+                <button id="menuToggle" class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors" aria-label="Open menu">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="navOverlay" class="nav-overlay"></div>
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        <div class="mt-8">
+            <a href="index.html" class="nav-link text-primary-500"><i class="fas fa-home"></i> Home</a>
+            <a href="about.html" class="nav-link"><i class="fas fa-user"></i> About</a>
+            <a href="services.html" class="nav-link"><i class="fas fa-cogs"></i> Services</a>
+            <a href="portfolio.html" class="nav-link"><i class="fas fa-folder-open"></i> Portfolio</a>
+            <a href="blog.html" class="nav-link"><i class="fas fa-blog"></i> Blog</a>
+            <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+            <div id="themeToggleMobile" class="nav-link cursor-pointer">
+                <i id="themeIconMobile" class="fas fa-moon"></i> Toggle Theme
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="relative min-h-screen pt-32 pb-20 overflow-hidden hero-gradient-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="space-y-5 sm:space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-primary-500/10 text-primary-600 dark:text-primary-300 px-4 py-1.5 rounded-full text-sm font-semibold border border-primary-500/20 animate-pulse-slow">
+                        <i class="fas fa-code"></i> Fullstack · Python · AI
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.05] tracking-tight">
+                        Crafting <span class="gradient-text">digital</span><br />
+                        excellence with <span class="gradient-text">Nelisoft</span>
+                    </h1>
+                    <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-lg leading-relaxed">
+                        <strong class="text-primary-500 dark:text-primary-400">Fullstack web developer</strong> &amp; Python architect with 5+ years of experience.
+                        I build elegant, scalable solutions from backend to UI —
+                        <span id="greeting" class="inline-block">✨</span>
+                    </p>
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="portfolio.html" class="relative inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-semibold rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base">
+                            <i class="fas fa-rocket"></i> View My Work
+                        </a>
+                        <a href="contact.html" class="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-transparent border-2 border-primary-500 dark:border-primary-400 text-primary-500 dark:text-primary-400 font-semibold rounded-full hover:bg-primary-500 hover:text-white dark:hover:bg-primary-400 dark:hover:text-slate-900 hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base">
+                            <i class="fas fa-paper-plane"></i> Let's Talk
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap gap-6 sm:gap-8 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">8+</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Projects</div></div>
+                        <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">5+</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Experience</div></div>
+                        <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">12+</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Clients</div></div>
+                        <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">6</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Countries</div></div>
+                    </div>
+                </div>
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
+                        <div class="relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-primary-500/10 to-secondary-500/10 border border-slate-200 dark:border-slate-700 shadow-2xl hover:scale-[1.02] transition-transform duration-500">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=600&fit=crop&crop=center&auto=format" alt="Nelisoft Hub developer workspace" class="w-full h-full object-cover" loading="lazy" onerror="this.style.display='none'" />
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-secondary-500/5 pointer-events-none"></div>
+                            <div class="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-lg flex items-center gap-2 text-xs sm:text-sm font-semibold animate-float border border-white/30 dark:border-slate-600">
+                                <i class="fas fa-globe-americas text-primary-500"></i> Global Reach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS BAR ===== -->
+    <section class="py-8 sm:py-12 bg-white dark:bg-slate-800/30 border-y border-slate-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
+                <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">100%</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Client Satisfaction</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">24/7</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Support</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">50+</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Technologies</div></div>
+                <div><div class="text-2xl sm:text-3xl font-extrabold gradient-text">4.9★</div><div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Average Rating</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES PREVIEW ===== -->
+    <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">What I Offer</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3">Core <span class="gradient-text">Services</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-4 text-sm sm:text-base">Comprehensive development solutions tailored to your business needs.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div class="service-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-laptop-code text-2xl sm:text-3xl text-primary-500"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">Web Development</h3>
+                    <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">Fullstack web applications using React, Vue, Django, and Node.js.</p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-brain text-2xl sm:text-3xl text-secondary-500"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">AI & ML</h3>
+                    <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">Intelligent solutions with PyTorch, TensorFlow, and custom ML models.</p>
+                </div>
+                <div class="service-card bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-cloud text-2xl sm:text-3xl text-accent-500"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2">Cloud Architecture</h3>
+                    <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">Scalable cloud solutions on AWS, Azure, and GCP with Docker.</p>
+                </div>
+            </div>
+            <div class="text-center mt-8 sm:mt-10">
+                <a href="services.html" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 text-sm sm:text-base">
+                    View All Services <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== RECENT PROJECTS ===== -->
+    <section class="py-16 sm:py-20 bg-white dark:bg-slate-800/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">Portfolio</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3">Recent <span class="gradient-text">Projects</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-4 text-sm sm:text-base">Each project reflects my commitment to quality, performance, and design.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=240&fit=crop&crop=center&auto=format" alt="EcoShop AI" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" /></div>
+                    <div class="p-4 sm:p-5"><h3 class="font-bold text-sm sm:text-base mb-1">EcoShop AI</h3><p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3">E-commerce with AI recommendations</p><a href="portfolio.html" class="text-primary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">View Project <i class="fas fa-arrow-right text-xs"></i></a></div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=240&fit=crop&crop=center&auto=format" alt="Analytics Dash" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" /></div>
+                    <div class="p-4 sm:p-5"><h3 class="font-bold text-sm sm:text-base mb-1">Analytics Dash</h3><p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3">Business intelligence dashboard</p><a href="portfolio.html" class="text-primary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">View Project <i class="fas fa-arrow-right text-xs"></i></a></div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden"><img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=240&fit=crop&crop=center&auto=format" alt="Neural Search" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" /></div>
+                    <div class="p-4 sm:p-5"><h3 class="font-bold text-sm sm:text-base mb-1">Neural Search</h3><p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3">Semantic search engine</p><a href="portfolio.html" class="text-primary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">View Project <i class="fas fa-arrow-right text-xs"></i></a></div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=240&fit=crop&crop=center&auto=format" alt="Workflow Studio" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" /></div>
+                    <div class="p-4 sm:p-5"><h3 class="font-bold text-sm sm:text-base mb-1">Workflow Studio</h3><p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-3">Low-code automation platform</p><a href="portfolio.html" class="text-primary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">View Project <i class="fas fa-arrow-right text-xs"></i></a></div>
+                </div>
+            </div>
+            <div class="text-center mt-8 sm:mt-10">
+                <a href="portfolio.html" class="inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-primary-500 dark:border-primary-400 text-primary-500 dark:text-primary-400 font-semibold rounded-full hover:bg-primary-500 hover:text-white dark:hover:bg-primary-400 dark:hover:text-slate-900 transition-all duration-300 text-sm sm:text-base">
+                    View All Projects <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BLOG PREVIEW WITH IMAGES ===== -->
+    <section class="py-16 sm:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10 sm:mb-12">
+                <span class="inline-block px-4 py-1.5 bg-primary-500/10 text-primary-600 dark:text-primary-300 rounded-full text-xs font-bold uppercase tracking-wider border border-primary-500/20">Insights</span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3">Latest <span class="gradient-text">Blog Posts</span></h2>
+                <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-4 text-sm sm:text-base">Thoughts, tutorials, and insights on web development and AI.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div class="blog-card bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=240&fit=crop&crop=center&auto=format" alt="Django Development" class="w-full h-full object-cover" loading="lazy" />
+                        <div class="absolute top-3 left-3 bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full">Tutorial</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-primary-500 mb-3">
+                            <i class="fas fa-calendar-alt"></i> Dec 15, 2026 <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span> <span class="text-slate-500 dark:text-slate-400">5 min read</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Building Scalable Web Apps with Django</h3>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">Learn best practices for building high-performance web applications with Django and modern frontend frameworks.</p>
+                        <a href="blog-post.html" class="text-primary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&h=240&fit=crop&crop=center&auto=format" alt="AI Search Engine" class="w-full h-full object-cover" loading="lazy" />
+                        <div class="absolute top-3 left-3 bg-secondary-500 text-white text-xs font-bold px-3 py-1 rounded-full">AI/ML</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-secondary-500 mb-3">
+                            <i class="fas fa-calendar-alt"></i> Dec 8, 2026 <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span> <span class="text-slate-500 dark:text-slate-400">8 min read</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">AI-Powered Search: A Practical Guide</h3>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">Explore how to build semantic search engines using transformers, vector databases, and modern NLP techniques.</p>
+                        <a href="blog-post.html" class="text-secondary-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+
+                <div class="blog-card bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <div class="relative aspect-[16/9] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=240&fit=crop&crop=center&auto=format" alt="Cloud Architecture" class="w-full h-full object-cover" loading="lazy" />
+                        <div class="absolute top-3 left-3 bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full">DevOps</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-accent-500 mb-3">
+                            <i class="fas fa-calendar-alt"></i> Dec 1, 2026 <span class="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-600"></span> <span class="text-slate-500 dark:text-slate-400">6 min read</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Optimizing Cloud Architecture</h3>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-4">Best practices for designing cost-effective, scalable cloud infrastructure on AWS, Azure, and GCP.</p>
+                        <a href="blog-post.html" class="text-accent-500 font-semibold text-sm inline-flex items-center gap-2 hover:gap-3 transition-all">Read More <i class="fas fa-arrow-right text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8 sm:mt-10">
+                <a href="blog.html" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 text-sm sm:text-base">
+                    Read All Posts <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="py-16 sm:py-20 bg-gradient-to-r from-primary-500/10 to-secondary-500/10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-4">Ready to Build Something <span class="gradient-text">Amazing?</span></h2>
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">Let's collaborate on your next project. I'm just a message away.</p>
+            <a href="contact.html" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white font-bold rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 hover:-translate-y-1 transition-all duration-300">
+                Start a Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-slate-200 dark:border-slate-700 py-8 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div><h4 class="font-bold text-lg mb-4 gradient-text">Nelisoft Hub</h4><p class="text-sm text-slate-600 dark:text-slate-400">Fullstack developer & Python expert building elegant digital solutions worldwide.</p></div>
+                <div><h5 class="font-semibold mb-3">Quick Links</h5><ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400"><li><a href="about.html" class="hover:text-primary-500 transition-colors">About</a></li><li><a href="services.html" class="hover:text-primary-500 transition-colors">Services</a></li><li><a href="portfolio.html" class="hover:text-primary-500 transition-colors">Portfolio</a></li><li><a href="blog.html" class="hover:text-primary-500 transition-colors">Blog</a></li></ul></div>
+                <div><h5 class="font-semibold mb-3">Services</h5><ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400"><li><a href="services.html" class="hover:text-primary-500 transition-colors">Web Development</a></li><li><a href="services.html" class="hover:text-primary-500 transition-colors">AI & ML</a></li><li><a href="services.html" class="hover:text-primary-500 transition-colors">Cloud Architecture</a></li><li><a href="services.html" class="hover:text-primary-500 transition-colors">UI/UX Design</a></li></ul></div>
+                <div><h5 class="font-semibold mb-3">Connect</h5><div class="flex gap-3"><a href="#" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center hover:bg-primary-500 hover:text-white transition-colors"><i class="fab fa-github"></i></a><a href="#" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center hover:bg-primary-500 hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a><a href="#" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center hover:bg-primary-500 hover:text-white transition-colors"><i class="fab fa-x-twitter"></i></a><a href="#" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center hover:bg-primary-500 hover:text-white transition-colors"><i class="fab fa-youtube"></i></a></div></div>
+            </div>
+            <div class="text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700 pt-6">
+                <p>&copy; <span id="currentYear">2026</span> Nelisoft Hub · crafted with <span class="text-red-500 inline-block animate-pulse">♥</span> &amp; Python · <i class="fas fa-globe"></i> International</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            "use strict";
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const themeIconMobile = document.getElementById('themeIconMobile');
+            const menuToggle = document.getElementById('menuToggle');
+            const closeMenu = document.getElementById('closeMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navOverlay = document.getElementById('navOverlay');
+            const greetingEl = document.getElementById('greeting');
+
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                themeIcon.className = 'fas fa-sun';
+                themeIconMobile.className = 'fas fa-sun';
+            }
+
+            function toggleTheme() {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                const iconClass = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeIcon.className = iconClass;
+                themeIconMobile.className = iconClass;
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            }
+
+            themeToggle.addEventListener('click', toggleTheme);
+            themeToggleMobile.addEventListener('click', toggleTheme);
+
+            function openMenu() { mobileMenu.classList.add('open'); navOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+            function closeMenuFn() { mobileMenu.classList.remove('open'); navOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+            menuToggle.addEventListener('click', openMenu);
+            closeMenu.addEventListener('click', closeMenuFn);
+            navOverlay.addEventListener('click', closeMenuFn);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenuFn(); });
+            mobileMenu.querySelectorAll('a').forEach(link => { link.addEventListener('click', closeMenuFn); });
+
+            const hour = new Date().getHours();
+            let greeting = '';
+            if (hour < 12) greeting = '☀️ Good morning!';
+            else if (hour < 18) greeting = '🌤️ Good afternoon!';
+            else greeting = '🌙 Good evening!';
+            greetingEl.textContent = greeting;
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const navbar = document.querySelector('nav');
+            window.addEventListener('scroll', () => {
+                navbar.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.06)' : 'none';
+            });
+
+            console.log('🚀 Nelisoft Hub — Multi-page portfolio with blog images.');
+        })();
+    </script>
+</body>
+</html>
